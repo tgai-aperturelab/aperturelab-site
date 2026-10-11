@@ -3,6 +3,8 @@
 光圈科技实验室的黑白静态官网，提供项目目录与筛选、成员墙、开发文档、资料下载及协作入口。
 
 - 官网：https://aperturelab.space/
+- GitHub 组织：https://github.com/tgai-aperturelab
+- 源码仓库：https://github.com/tgai-aperturelab/aperturelab-site
 - 站内开发文档：https://aperturelab.space/docs/
 - 项目状态：v4 已上线。成员墙目前为六个无名空白展示位。
 

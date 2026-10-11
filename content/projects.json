@@ -6,6 +6,6 @@
     "direction": "software",
     "status": "maintaining",
     "tags": ["HTML", "CSS", "JavaScript"],
-    "links": [{"label": "开发文档", "url": "/docs/"}, {"label": "参与维护", "url": "#participate"}]
+    "links": [{"label": "源代码", "url": "https://github.com/tgai-aperturelab/aperturelab-site"}, {"label": "开发文档", "url": "/docs/"}, {"label": "参与维护", "url": "#participate"}]
   }
 ]
