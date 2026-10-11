@@ -1,0 +1,8 @@
+{
+  "name": "aperture-club-site",
+  "private": true,
+  "type": "module",
+  "engines": {"node": ">=22.13.0"},
+  "scripts": { "build": "node scripts/build.cjs", "check": "node scripts/check.cjs", "test": "node --test scripts/*.test.mjs", "dev": "node scripts/serve.cjs", "package": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package.ps1" },
+  "devDependencies": {"sharp":"0.35.5"}
+}

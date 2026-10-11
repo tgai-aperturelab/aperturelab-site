@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://aperturelab.space/sitemap.xml
