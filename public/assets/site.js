@@ -8,11 +8,12 @@ import { initAperture } from './aperture-interaction.js';
 import { initIrisAnimator } from './iris-animation.js?v=logo-rigid-20261011';
 
 const apertureControl=document.querySelector('.aperture-control');
-initAperture(apertureControl,initIrisAnimator(apertureControl.querySelector('.aperture-svg')).setActive);
+if(apertureControl)initAperture(apertureControl,initIrisAnimator(apertureControl.querySelector('.aperture-svg')).setActive);
 
 const header = document.querySelector('.site-header');
 const menu = document.querySelector('.menu-toggle');
 const nav = document.querySelector('#site-nav');
+nav.querySelectorAll('a').forEach(a=>{if(new URL(a.href).pathname===location.pathname)a.setAttribute('aria-current','page');});
 header.classList.add('menu-enabled');
 menu.hidden = false;
 const closeMenu = () => {
@@ -37,8 +38,8 @@ window.matchMedia('(max-width: 680px)').addEventListener('change', closeMenu);
 
 const copyButton = document.querySelector('.copy-button');
 const feedback = document.querySelector('.copy-feedback');
-copyButton.hidden = false;
-copyButton.addEventListener('click', async () => {
+if(copyButton)copyButton.hidden = false;
+copyButton?.addEventListener('click', async () => {
   try {
     if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
     await navigator.clipboard.writeText(contact.phone);
@@ -55,6 +56,7 @@ copyButton.addEventListener('click', async () => {
 
 let expiryTimer;
 function updateQr() {
+  if(!document.querySelector('.qr-active'))return;
   clearTimeout(expiryTimer);
   const expired = isQrExpired(contact.qrExpiresAt);
   document.querySelector('.qr-active').hidden = expired;

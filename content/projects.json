@@ -5,7 +5,24 @@
     "summary": "实验室的公开内容入口。维护页面、整理项目与成员资料，并完善文档和访问体验。",
     "direction": "software",
     "status": "maintaining",
-    "tags": ["HTML", "CSS", "JavaScript"],
-    "links": [{"label": "源代码", "url": "https://github.com/tgai-aperturelab/aperturelab-site"}, {"label": "开发文档", "url": "/docs/"}, {"label": "参与维护", "url": "#participate"}]
+    "tags": [
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "links": [
+      {
+        "label": "源代码",
+        "url": "https://github.com/tgai-aperturelab/aperturelab-site"
+      },
+      {
+        "label": "开发文档",
+        "url": "/docs/"
+      },
+      {
+        "label": "参与维护",
+        "url": "/collaborate/"
+      }
+    ]
   }
 ]

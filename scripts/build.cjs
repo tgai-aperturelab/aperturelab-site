@@ -12,12 +12,20 @@ const c = config.contact;
 if (!/^\d{11}$/.test(c.phone) || !Number.isFinite(Date.parse(c.qrExpiresAt))) throw new Error('Invalid contact configuration');
 const escape = value => String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const vars = {name:config.name,url:config.url,phone:c.phone,person:c.person,qrImage:c.qrImage,qrExpiresAt:c.qrExpiresAt,qrValidityLabel:c.qrValidityLabel};
-const render=source=>source.replace(/\{\{(\w+)\}\}/g, (_, key) => {if (key==='aperture') return apertureSvg();if(key==='members')return membersHtml;if(key==='projects')return projectsHtml;if (!(key in vars)) throw new Error('Unknown variable: '+key);return escape(vars[key]);});
+const pages=JSON.parse(fs.readFileSync(path.join(root,'src/pages.json'),'utf8'));
+const partials=Object.fromEntries(['header','footer'].map(k=>[k,fs.readFileSync(path.join(root,'src/partials',k+'.html'),'utf8')]));
+const render=(source,extra={})=>source.replace(/\{\{(\w+)\}\}/g, (_, key) => {if(key in partials)return render(partials[key],extra);if (key==='aperture') return apertureSvg();if(key==='members')return membersHtml;if(key==='projects')return projectsHtml;const values={...vars,...extra};if (!(key in values)) throw new Error('Unknown variable: '+key);return escape(values[key]);});
 let html = render(fs.readFileSync(path.join(root, 'src/index.template.html'), 'utf8'));
 fs.writeFileSync(path.join(root, 'public/index.html'), html);
+for(const {route,title}of pages){
+ const content=fs.readFileSync(path.join(root,'src/pages',route+'.html'),'utf8');
+ const layout=fs.readFileSync(path.join(root,'src/page.template.html'),'utf8').replace('{{pageContent}}',content);
+ fs.mkdirSync(path.join(root,'public',route),{recursive:true});
+ fs.writeFileSync(path.join(root,'public',route,'index.html'),render(layout,{pageTitle:title,pagePath:'/'+route+'/'}));
+}
 fs.mkdirSync(path.join(root,'public/docs'),{recursive:true});
 fs.writeFileSync(path.join(root,'public/docs/index.html'),render(fs.readFileSync(path.join(root,'src/docs.template.html'),'utf8')));
 fs.writeFileSync(path.join(root, 'public/assets/contact-config.js'), 'export default '+JSON.stringify(c, null, 2)+';\n');
 fs.writeFileSync(path.join(root, 'public/robots.txt'), 'User-agent: *\nAllow: /\nSitemap: '+config.url+'/sitemap.xml\n');
-fs.writeFileSync(path.join(root, 'public/sitemap.xml'), '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>'+config.url+'/</loc></url><url><loc>'+config.url+'/docs/</loc></url></urlset>\n');
+fs.writeFileSync(path.join(root, 'public/sitemap.xml'), '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+['/','/docs/',...pages.map(p=>'/'+p.route+'/')].map(p=>'<url><loc>'+config.url+p+'</loc></url>').join('')+'</urlset>\n');
 console.log('Built static site and contact configuration.');

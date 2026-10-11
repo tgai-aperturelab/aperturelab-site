@@ -6,7 +6,7 @@
 - GitHub 组织：https://github.com/tgai-aperturelab
 - 源码仓库：https://github.com/tgai-aperturelab/aperturelab-site
 - 站内开发文档：https://aperturelab.space/docs/
-- 项目状态：v4 已上线。成员墙目前为六个无名空白展示位。
+- 项目状态：多页面版本 v5。成员墙目前为六个无名空白展示位。
 
 ## 本地开发
 
@@ -45,3 +45,10 @@ Windows 下运行 `npm run package`，生成包含源码、静态网站 ZIP、�
 ## 许可证与素材
 
 项目自有代码按 [MIT](LICENSE) 许可。第三方 Logo、品牌、二维码与相关素材不属于 MIT 代码授权范围，详见 [第三方素材说明](THIRD_PARTY_NOTICES.md)。本项目与 Valve Corporation 无关联，也不表示获得其认可。
+
+## 页面路由
+
+首页仅保留品牌与入口；独立页面为 /projects/、/members/、/resources/、/about/、/collaborate/、/contact/，开发文档为 /docs/。
+
+二级页面由 src/pages.json 定义，内容在 src/pages/，公共布局为 src/page.template.html，共用页头页脚在 src/partials/。
+

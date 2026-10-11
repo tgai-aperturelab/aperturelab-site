@@ -1,0 +1,26 @@
+[
+  {
+    "route": "projects",
+    "title": "项目目录"
+  },
+  {
+    "route": "members",
+    "title": "成员墙"
+  },
+  {
+    "route": "resources",
+    "title": "资料与文档"
+  },
+  {
+    "route": "about",
+    "title": "关于实验室"
+  },
+  {
+    "route": "collaborate",
+    "title": "参与协作"
+  },
+  {
+    "route": "contact",
+    "title": "联系实验室"
+  }
+]

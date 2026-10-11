@@ -7,7 +7,7 @@ try {
     if ($LASTEXITCODE -ne 0) { throw "Failed task: $task" }
   }
   $stamp = (Get-Date).ToString('yyyyMMdd-HHmmss')
-  $delivery = Join-Path $projectRoot "deliverables/aperturelab-v4-$stamp"
+  $delivery = Join-Path $projectRoot "deliverables/aperturelab-v5-$stamp"
   $sourceStage = Join-Path $delivery 'source'
   New-Item -ItemType Directory -Path $sourceStage | Out-Null
   foreach ($directory in @('src','content','public','docs')) {
