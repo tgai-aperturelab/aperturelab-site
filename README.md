@@ -52,3 +52,9 @@ Windows 下运行 `npm run package`，生成包含源码、静态网站 ZIP、�
 
 二级页面由 src/pages.json 定义，内容在 src/pages/，公共布局为 src/page.template.html，共用页头页脚在 src/partials/。
 
+## 技术要点与验证
+
+- **零框架静态构建与渐进增强**：不依赖外部字体、CDN 或后端接口。`scripts/build.cjs` 仅使用 Node 内置模块读取 `site.config.json`、`content/*.json` 与 `src/` 模板，经 `scripts/projects.cjs`、`scripts/members.cjs` 校验与 HTML 转义后直出 `public/` 静态页、`sitemap.xml`、`robots.txt` 及 `public/assets/contact-config.js`；关闭 JavaScript 仍可浏览全部内容，前端原生 ES Modules（`public/assets/site.js`、`projects.js`、`members.js`）负责搜索筛选、菜单与二维码过期切换。
+- **光圈刚体几何与交互**：`scripts/logo-leaves.cjs` 从 `source-assets/valve-aperture-science-original.svg` 派生八片固定叶片与支点，`public/assets/iris-geometry.js` 与 `iris-animation.js` 驱动刚体旋转动画，支持 hover、触控、键盘操作及减少动态效果。
+- **静态校验（`npm run check`）**：`scripts/check.cjs` 检查所有构建后 HTML 无未渲染变量、无重复 `id`、无 `<form>`，校验全部站内路径与锚点、文件扩展名白名单，以及 `public/` 总大小不超过 1 MB。
+- **单元测试（`npm test`）**：`scripts/*.test.mjs` 共 8 个文件、17 项 `node:test` 用例，覆盖页面路由、项目与成员数据校验/筛选、二维码北京时间过期判断、光圈刚体几何与交互动画，以及多尺寸透明 ICO 图标校验（`scripts/static-brand.test.mjs` 依赖 `sharp`）。
